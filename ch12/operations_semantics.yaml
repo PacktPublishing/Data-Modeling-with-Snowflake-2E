@@ -1,0 +1,652 @@
+name: operations_semantics
+description: 'This semantic model is used by the operations team to analyze sales and customer data. '
+tables:
+  - name: CUSTOMER
+    base_table:
+      database: DEMO_TPCH
+      schema: OPERATIONS
+      table: CUSTOMER
+    primary_key:
+      columns:
+        - CUSTOMER_ID
+        - LOCATION_ID
+    dimensions:
+      - name: ADDRESS
+        expr: ADDRESS
+        data_type: VARCHAR(16777216)
+        sample_values:
+          - ztX 6epK1g7965U5,1
+          - nmvMcD5Avo2S 4ds2HGH9sMU4X2hBv6op6Vg04NA
+          - iBJ8jX 55prQzW6
+        description: The customer's physical location or mailing address.
+        synonyms:
+          - location
+          - residence
+          - street_address
+          - mailing_address
+          - physical_address
+          - home_address
+      - name: COMMENT
+        description: varchar COMMENT 'VARCHAR(117)
+        expr: COMMENT
+        data_type: VARCHAR(16777216)
+        sample_values:
+          - al instructions doubt blithely above the bl
+          - 'express courts wake furiously. blithely unusual tithes cajole according to the daringly even '
+          - sleep about the quickly regular accounts! slyly regular packages cajole blithely
+        synonyms:
+          - remark
+          - note
+          - description
+          - feedback
+          - annotation
+          - explanation
+          - review
+      - name: MARKET_SEGMENT
+        expr: MARKET_SEGMENT
+        data_type: VARCHAR(10)
+        sample_values:
+          - MACHINERY
+          - HOUSEHOLD
+          - FURNITURE
+        description: The market segment to which the customer belongs, categorizing them based on the type of products or services they purchase, such as machinery, household items, or furniture.
+        synonyms:
+          - target_market
+          - customer_category
+          - market_niche
+          - customer_type
+          - demographic_segment
+          - audience_group
+      - name: NAME
+        expr: NAME
+        data_type: VARCHAR(16777216)
+        sample_values:
+          - Customer#000195095
+          - Customer#000195109
+          - Customer#000195120
+        description: Unique identifier for a customer, represented as a string in the format "Customer#XXXXXXX", where XXXXXXX is a unique numerical identifier.
+        synonyms:
+          - full_name
+          - customer_name
+          - client_name
+          - person_name
+          - individual_name
+          - customer_full_name
+      - name: PHONE
+        expr: PHONE
+        data_type: VARCHAR(15)
+        sample_values:
+          - 12-881-575-3312
+          - 16-416-665-8045
+          - 30-390-889-4615
+        description: The customer's phone number, in the format of a unique identifier for each customer, used for contact and communication purposes.
+        synonyms:
+          - telephone
+          - contact_number
+          - phone_number
+          - mobile_number
+          - contact_info
+          - dial_number
+    facts:
+      - name: ACCOUNT_BALANCE_USD
+        expr: ACCOUNT_BALANCE_USD
+        data_type: NUMBER(12,2)
+        sample_values:
+          - '8897.78'
+          - '2032.36'
+          - '9123.08'
+        description: The current balance of the customer's account in US dollars.
+        synonyms:
+          - account_balance
+          - usd_balance
+          - customer_balance
+          - account_value
+          - usd_amount
+          - balance_amount
+          - customer_account_value
+      - name: CUSTOMER_ID
+        expr: CUSTOMER_ID
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '1485093'
+          - '1485002'
+          - '1485003'
+        description: Unique identifier for each customer in the database, used to distinguish and track individual customer records.
+        synonyms:
+          - customer_key
+          - client_id
+          - account_number
+          - customer_number
+          - client_identifier
+          - account_identifier
+      - name: LOCATION_ID
+        expr: LOCATION_ID
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '12'
+          - '6'
+          - '0'
+        description: Unique identifier for the location where the customer is based.
+        synonyms:
+          - site_id
+          - facility_id
+          - store_id
+          - branch_id
+          - outlet_id
+          - venue_id
+          - premises_id
+          - geographical_id
+    description: This table stores information about customers, including their unique identifier, name, address, location, phone number, account balance in US dollars, and market segment, as well as any additional comments.
+    synonyms:
+      - client
+      - buyer
+      - purchaser
+      - shopper
+      - consumer
+      - customer base
+  - name: LINEITEM
+    base_table:
+      database: DEMO_TPCH
+      schema: OPERATIONS
+      table: LINEITEM
+    primary_key:
+      columns:
+        - LINE_NUMBER
+        - SALES_ORDER_ID
+    dimensions:
+      - name: COMMENT
+        description: varchar(44) COMMENT 'VARCHAR(44)
+        expr: COMMENT
+        data_type: VARCHAR(44)
+        sample_values:
+          - s-- blithely
+          - ' the bold excuses'
+          - sits! regular accounts are abou
+        synonyms:
+          - remark
+          - note
+          - annotation
+          - description
+          - feedback
+          - review
+          - opinion
+          - statement
+          - explanation
+          - commentary
+      - name: LINE_STATUS
+        expr: LINE_STATUS
+        data_type: VARCHAR(1)
+        sample_values:
+          - F
+          - O
+        description: The status of the line item, where F indicates the order has been shipped and O indicates the order is open.
+        synonyms:
+          - order_status
+          - line_condition
+          - status_code
+          - line_state
+          - item_status
+      - name: RETURN_FLAG
+        expr: RETURN_FLAG
+        data_type: VARCHAR(1)
+        sample_values:
+          - R
+          - 'N'
+          - A
+        description: Indicates whether the line item is a return or not, with possible values being 'R' for return, 'N' for not a return, and 'A' for a return that was originally an advance payment.
+        synonyms:
+          - return_status
+          - return_indicator
+          - return_code
+          - cancellation_flag
+          - refund_status
+      - name: SHIP_INSTRUCTIONS
+        expr: SHIP_INSTRUCTIONS
+        data_type: VARCHAR(25)
+        sample_values:
+          - COLLECT COD
+          - NONE
+          - DELIVER IN PERSON
+        description: Special instructions for shipping the order, such as requiring a signature upon delivery (COLLECT COD), no special instructions (NONE), or delivering the order directly to the customer in person (DELIVER IN PERSON).
+        synonyms:
+          - shipping_notes
+          - delivery_guidelines
+          - handling_instructions
+          - freight_directions
+          - transportation_guidelines
+      - name: SHIP_MODE
+        expr: SHIP_MODE
+        data_type: VARCHAR(10)
+        sample_values:
+          - TRUCK
+          - REG AIR
+          - FOB
+        description: The shipping mode used to transport the order, indicating the method by which the goods were delivered to the customer.
+        synonyms:
+          - shipping_method
+          - delivery_mode
+          - transportation_mode
+          - freight_mode
+          - logistics_mode
+          - dispatch_method
+    facts:
+      - name: DISCOUNT_PERCENT
+        expr: DISCOUNT_PERCENT
+        data_type: NUMBER(12,2)
+        sample_values:
+          - '0.00'
+          - '0.08'
+          - '0.03'
+        description: The percentage discount applied to the order line item.
+        synonyms:
+          - discount_rate
+          - discount_percentage
+          - price_reduction
+          - markdown_percentage
+          - percentage_off
+      - name: EXTENDED_PRICE_USD
+        expr: EXTENDED_PRICE_USD
+        data_type: NUMBER(12,2)
+        sample_values:
+          - '37079.28'
+          - '23849.54'
+          - '5740.80'
+        description: The total price of an order line item in US dollars, calculated by multiplying the quantity of the item ordered by the extended price of the item.
+        synonyms:
+          - total_price
+          - total_cost
+          - total_amount
+          - extended_cost
+          - total_value
+          - total_revenue
+          - total_sales_value
+          - total_invoice_value
+      - name: LINE_NUMBER
+        expr: LINE_NUMBER
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '33599687'
+          - '33599680'
+          - '33599425'
+        description: A unique identifier for each line item in an order, representing the sequence number of the item within the order.
+        synonyms:
+          - line_id
+          - row_number
+          - item_number
+          - sequence_number
+          - entry_number
+      - name: PART_ID
+        expr: PART_ID
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '46513'
+          - '84828'
+          - '25466'
+        description: Unique identifier for a specific part or product in the inventory.
+        synonyms:
+          - product_id
+          - item_id
+          - component_id
+          - part_number
+          - product_number
+          - item_number
+      - name: QUANTITY
+        expr: QUANTITY
+        data_type: NUMBER(12,2)
+        sample_values:
+          - '29.00'
+          - '42.00'
+          - '17.00'
+        description: The quantity of a product ordered in a single line item of an order.
+        synonyms:
+          - amount
+          - volume
+          - count
+          - number
+          - total
+          - units
+          - items
+          - stock
+          - inventory
+          - bulk
+      - name: SALES_ORDER_ID
+        expr: SALES_ORDER_ID
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '892285'
+          - '1940822'
+          - '1521829'
+        description: Unique identifier for the sales order that this line item belongs to.
+        synonyms:
+          - order_id
+          - sales_order_number
+          - order_reference
+          - purchase_order_id
+          - transaction_id
+      - name: SUPPLIER_ID
+        expr: SUPPLIER_ID
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '1'
+          - '7'
+          - '2'
+        description: The unique identifier of the supplier who provided the goods or services for the line item.
+        synonyms:
+          - vendor_id
+          - provider_id
+          - supplier_number
+          - provider_number
+          - vendor_number
+      - name: TAX_PERCENT
+        expr: TAX_PERCENT
+        data_type: NUMBER(12,2)
+        sample_values:
+          - '0.07'
+          - '0.08'
+          - '0.00'
+        description: The percentage of tax applied to the line item, representing the sales tax rate.
+        synonyms:
+          - tax_rate
+          - vat_percentage
+          - sales_tax_rate
+          - duty_percentage
+          - levy_percentage
+    time_dimensions:
+      - name: COMMIT_DATE
+        expr: COMMIT_DATE
+        data_type: DATE
+        sample_values:
+          - '1997-02-08'
+          - '1994-09-15'
+          - '1995-04-28'
+        description: The date on which the order was committed or confirmed.
+        synonyms:
+          - confirmation_date
+          - confirmation_timestamp
+          - commit_timestamp
+          - order_commit_date
+          - order_confirmation_date
+      - name: RECEIPT_DATE
+        expr: RECEIPT_DATE
+        data_type: DATE
+        sample_values:
+          - '1998-03-27'
+          - '1998-08-06'
+          - '1993-11-11'
+        description: The date on which the order was received by the supplier.
+        synonyms:
+          - date_received
+          - delivery_date
+          - received_on
+          - arrival_date
+          - date_arrived
+      - name: SHIP_DATE
+        expr: SHIP_DATE
+        data_type: DATE
+        sample_values:
+          - '1994-09-16'
+          - '1993-11-16'
+          - '1994-10-23'
+        description: The date on which the order was shipped.
+        synonyms:
+          - dispatch_date
+          - shipping_date
+          - delivery_date
+          - send_date
+          - departure_date
+  - name: LOCATION
+    base_table:
+      database: DEMO_TPCH
+      schema: OPERATIONS
+      table: LOCATION
+    primary_key:
+      columns:
+        - LOCATION_ID
+    dimensions:
+      - name: COMMENT
+        description: varchar(152) COMMENT 'VARCHAR(152)
+        expr: COMMENT
+        data_type: VARCHAR(152)
+        sample_values:
+          - ' haggle. carefully final deposits detect slyly agai'
+          - al foxes promise slyly according to the regular accounts. bold requests alon
+          - 'y alongside of the pending deposits. carefully special packages are about the ironic forges. slyly special '
+        synonyms:
+          - remark
+          - note
+          - description
+          - annotation
+          - explanation
+      - name: NAME
+        expr: NAME
+        data_type: VARCHAR(25)
+        sample_values:
+          - ALGERIA
+          - ARGENTINA
+          - BRAZIL
+        description: Country where the business or entity is located.
+        synonyms:
+          - title
+          - label
+          - identifier
+          - designation
+          - appellation
+    facts:
+      - name: LOCATION_ID
+        expr: LOCATION_ID
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '0'
+          - '1'
+          - '2'
+        description: Unique identifier for a specific geographic location.
+        synonyms:
+          - location_key
+          - site_id
+          - place_identifier
+          - facility_number
+          - site_number
+          - location_code
+      - name: REGION_ID
+        expr: REGION_ID
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '0'
+          - '1'
+          - '4'
+        description: Unique identifier for a geographic region.
+        synonyms:
+          - region_code
+          - geographic_area_id
+          - area_identifier
+          - territory_id
+          - zone_number
+    description: ''
+    synonyms:
+      - countries
+    filters:
+      - expr: LOCATION_ID in (3, 24)
+        name: north_america
+        description: north american locations
+        synonyms:
+          - americas
+  - name: SALES_ORDER
+    base_table:
+      database: DEMO_TPCH
+      schema: OPERATIONS
+      table: SALES_ORDER
+    dimensions:
+      - name: ORDER_STATUS
+        expr: ORDER_STATUS
+        data_type: VARCHAR(1)
+        description: The current status of the sales order, where P = Pending, F = Fulfilled, and O = Open.
+        sample_values:
+          - P
+          - F
+          - O
+        synonyms:
+          - order_condition
+          - status_code
+          - order_state
+          - purchase_status
+          - transaction_status
+          - fulfillment_status
+      - name: ORDER_PRIORITY
+        expr: ORDER_PRIORITY
+        data_type: VARCHAR(15)
+        description: The priority level of the sales order, indicating the urgency or importance of fulfilling the order, with possible values being High, Low, or Not Specified.
+        sample_values:
+          - 4-NOT SPECIFIED
+          - 2-HIGH
+          - 5-LOW
+        synonyms:
+          - order_importance
+          - priority_level
+          - order_urgency
+          - shipping_priority_level
+          - delivery_priority
+          - order_rank
+          - priority_status
+      - name: CLERK
+        expr: CLERK
+        data_type: VARCHAR(15)
+        description: The sales representative or clerk who processed the sales order.
+        sample_values:
+          - Clerk#000000768
+          - Clerk#000002213
+          - Clerk#000004685
+        synonyms:
+          - sales_representative
+          - sales_agent
+          - sales_associate
+          - order_taker
+          - order_processor
+          - sales_staff
+          - sales_person
+      - name: COMMENT
+        expr: COMMENT
+        data_type: VARCHAR(79)
+        description: varchar(79) COMMENT 'VARCHAR(79)
+        sample_values:
+          - ' blithely regular, silent accounts. ironic'
+          - hely ideas. packages cajole quickly daringly
+          - . slyly final instructions han
+        synonyms:
+          - remark
+          - note
+          - description
+          - annotation
+          - feedback
+          - explanation
+          - review
+          - observation
+    time_dimensions:
+      - name: ORDER_DATE
+        expr: ORDER_DATE
+        data_type: DATE
+        description: The date on which the sales order was placed.
+        sample_values:
+          - '1994-11-05'
+          - '1992-11-21'
+          - '1994-06-20'
+        synonyms:
+          - order_timestamp
+          - purchase_date
+          - transaction_date
+          - sale_date
+          - date_ordered
+          - order_creation_date
+          - order_placement_date
+          - date_of_purchase
+    facts:
+      - name: SALES_ORDER_ID
+        expr: SALES_ORDER_ID
+        data_type: NUMBER(38,0)
+        description: Unique identifier for a sales order.
+        sample_values:
+          - '33993219'
+          - '33993799'
+          - '33993281'
+        synonyms:
+          - order_id
+          - order_number
+          - sales_order_number
+          - purchase_order_id
+          - transaction_id
+          - invoice_id
+      - name: CUSTOMER_ID
+        expr: CUSTOMER_ID
+        data_type: NUMBER(38,0)
+        description: Unique identifier for the customer who placed the sales order.
+        sample_values:
+          - '264838'
+          - '902827'
+          - '86891'
+        synonyms:
+          - client_id
+          - customer_number
+          - account_id
+          - client_number
+          - account_holder_id
+          - buyer_id
+      - name: TOTAL_PRICE_USD
+        expr: TOTAL_PRICE_USD
+        data_type: NUMBER(12,2)
+        description: The total price of the sales order in US dollars.
+        sample_values:
+          - '118222.09'
+          - '166543.17'
+          - '113017.15'
+        synonyms:
+          - total_cost
+          - total_amount
+          - total_value
+          - total_payment
+          - total_invoice_value
+          - total_order_value
+          - total_sale_price
+          - total_revenue
+          - total sales
+        default_aggregation: 1
+      - name: SHIP_PRIORITY
+        expr: SHIP_PRIORITY
+        data_type: NUMBER(38,0)
+        description: The priority level assigned to the sales order for shipping, with 0 indicating the lowest priority.
+        sample_values:
+          - '0'
+        synonyms:
+          - shipping_priority
+          - delivery_priority
+          - freight_priority
+          - transport_priority
+          - dispatch_priority
+    primary_key:
+      columns:
+        - SALES_ORDER_ID
+        - CUSTOMER_ID
+relationships:
+  - name: cust_loc
+    join_type: inner
+    left_table: LOCATION
+    relationship_columns:
+      - left_column: LOCATION_ID
+        right_column: LOCATION_ID
+    right_table: CUSTOMER
+    relationship_type: many_to_one
+  - name: cust_sales
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: CUSTOMER
+    relationship_columns:
+      - left_column: CUSTOMER_ID
+        right_column: CUSTOMER_ID
+    right_table: SALES_ORDER
+  - name: salesOrder_LineItem
+    join_type: inner
+    relationship_type: many_to_one
+    left_table: LINEITEM
+    relationship_columns:
+      - left_column: SALES_ORDER_ID
+        right_column: SALES_ORDER_ID
+    right_table: SALES_ORDER
+custom_instructions: 'Ensure that all numeric columns are rounded to 2 decimal points in the output if decimals exist. '
