@@ -87,23 +87,6 @@ tables:
           - mobile_number
           - contact_info
           - dial_number
-    facts:
-      - name: ACCOUNT_BALANCE_USD
-        expr: ACCOUNT_BALANCE_USD
-        data_type: NUMBER(12,2)
-        sample_values:
-          - '8897.78'
-          - '2032.36'
-          - '9123.08'
-        description: The current balance of the customer's account in US dollars.
-        synonyms:
-          - account_balance
-          - usd_balance
-          - customer_balance
-          - account_value
-          - usd_amount
-          - balance_amount
-          - customer_account_value
       - name: CUSTOMER_ID
         expr: CUSTOMER_ID
         data_type: NUMBER(38,0)
@@ -136,14 +119,33 @@ tables:
           - venue_id
           - premises_id
           - geographical_id
+    facts:
+      - name: ACCOUNT_BALANCE_USD
+        expr: ACCOUNT_BALANCE_USD
+        data_type: NUMBER(12,2)
+        sample_values:
+          - '8897.78'
+          - '2032.36'
+          - '9123.08'
+        description: The current balance of the customer's account in US dollars.
+        synonyms:
+          - account_balance
+          - usd_balance
+          - customer_balance
+          - account_value
+          - usd_amount
+          - balance_amount
+          - customer_account_value
     description: This table stores information about customers, including their unique identifier, name, address, location, phone number, account balance in US dollars, and market segment, as well as any additional comments.
     synonyms:
       - client
+      - customer
+      - patron
       - buyer
       - purchaser
       - shopper
       - consumer
-      - customer base
+      - user
   - name: LINEITEM
     base_table:
       database: DEMO_TPCH
@@ -229,6 +231,63 @@ tables:
           - freight_mode
           - logistics_mode
           - dispatch_method
+      - name: LINE_NUMBER
+        expr: LINE_NUMBER
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '33599687'
+          - '33599680'
+          - '33599425'
+        description: A unique identifier for each line item in an order, representing the sequence number of the item within the order.
+        synonyms:
+          - line_id
+          - row_number
+          - item_number
+          - sequence_number
+          - entry_number
+      - name: PART_ID
+        expr: PART_ID
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '46513'
+          - '84828'
+          - '25466'
+        description: Unique identifier for a specific part or product in the inventory.
+        synonyms:
+          - product_id
+          - item_id
+          - component_id
+          - part_number
+          - product_number
+          - item_number
+      - name: SALES_ORDER_ID
+        expr: SALES_ORDER_ID
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '892285'
+          - '1940822'
+          - '1521829'
+        description: Unique identifier for the sales order that this line item belongs to.
+        synonyms:
+          - order_id
+          - sales_order_number
+          - order_reference
+          - purchase_order_id
+          - transaction_id
+      - name: SUPPLIER_ID
+        expr: SUPPLIER_ID
+        data_type: NUMBER(38,0)
+        sample_values:
+          - '1'
+          - '7'
+          - '2'
+        description: The unique identifier of the supplier who provided the goods or services for the line item.
+        synonyms:
+          - vendor_id
+          - provider_id
+          - supplier_number
+          - provider_number
+          - vendor_number
     facts:
       - name: DISCOUNT_PERCENT
         expr: DISCOUNT_PERCENT
@@ -261,35 +320,6 @@ tables:
           - total_revenue
           - total_sales_value
           - total_invoice_value
-      - name: LINE_NUMBER
-        expr: LINE_NUMBER
-        data_type: NUMBER(38,0)
-        sample_values:
-          - '33599687'
-          - '33599680'
-          - '33599425'
-        description: A unique identifier for each line item in an order, representing the sequence number of the item within the order.
-        synonyms:
-          - line_id
-          - row_number
-          - item_number
-          - sequence_number
-          - entry_number
-      - name: PART_ID
-        expr: PART_ID
-        data_type: NUMBER(38,0)
-        sample_values:
-          - '46513'
-          - '84828'
-          - '25466'
-        description: Unique identifier for a specific part or product in the inventory.
-        synonyms:
-          - product_id
-          - item_id
-          - component_id
-          - part_number
-          - product_number
-          - item_number
       - name: QUANTITY
         expr: QUANTITY
         data_type: NUMBER(12,2)
@@ -309,34 +339,6 @@ tables:
           - stock
           - inventory
           - bulk
-      - name: SALES_ORDER_ID
-        expr: SALES_ORDER_ID
-        data_type: NUMBER(38,0)
-        sample_values:
-          - '892285'
-          - '1940822'
-          - '1521829'
-        description: Unique identifier for the sales order that this line item belongs to.
-        synonyms:
-          - order_id
-          - sales_order_number
-          - order_reference
-          - purchase_order_id
-          - transaction_id
-      - name: SUPPLIER_ID
-        expr: SUPPLIER_ID
-        data_type: NUMBER(38,0)
-        sample_values:
-          - '1'
-          - '7'
-          - '2'
-        description: The unique identifier of the supplier who provided the goods or services for the line item.
-        synonyms:
-          - vendor_id
-          - provider_id
-          - supplier_number
-          - provider_number
-          - vendor_number
       - name: TAX_PERCENT
         expr: TAX_PERCENT
         data_type: NUMBER(12,2)
@@ -394,6 +396,16 @@ tables:
           - delivery_date
           - send_date
           - departure_date
+    description: This table stores information about individual line items within a sales order, including the product details, quantity, pricing, and shipping information.
+    synonyms:
+      - order_item
+      - order_line
+      - line_item
+      - sales_order_line
+      - order_details
+      - item_details
+      - sales_line
+      - line_details
   - name: LOCATION
     base_table:
       database: DEMO_TPCH
@@ -431,7 +443,6 @@ tables:
           - identifier
           - designation
           - appellation
-    facts:
       - name: LOCATION_ID
         expr: LOCATION_ID
         data_type: NUMBER(38,0)
@@ -461,7 +472,8 @@ tables:
           - area_identifier
           - territory_id
           - zone_number
-    description: ''
+    facts: []
+    description: This table stores information about geographic locations that are assigned to customers or suppliers, including a unique identifier, name, and region, as well as any additional comments or notes about the location.
     synonyms:
       - countries
     filters:
@@ -540,25 +552,6 @@ tables:
           - explanation
           - review
           - observation
-    time_dimensions:
-      - name: ORDER_DATE
-        expr: ORDER_DATE
-        data_type: DATE
-        description: The date on which the sales order was placed.
-        sample_values:
-          - '1994-11-05'
-          - '1992-11-21'
-          - '1994-06-20'
-        synonyms:
-          - order_timestamp
-          - purchase_date
-          - transaction_date
-          - sale_date
-          - date_ordered
-          - order_creation_date
-          - order_placement_date
-          - date_of_purchase
-    facts:
       - name: SALES_ORDER_ID
         expr: SALES_ORDER_ID
         data_type: NUMBER(38,0)
@@ -589,6 +582,25 @@ tables:
           - client_number
           - account_holder_id
           - buyer_id
+    time_dimensions:
+      - name: ORDER_DATE
+        expr: ORDER_DATE
+        data_type: DATE
+        description: The date on which the sales order was placed.
+        sample_values:
+          - '1994-11-05'
+          - '1992-11-21'
+          - '1994-06-20'
+        synonyms:
+          - order_timestamp
+          - purchase_date
+          - transaction_date
+          - sale_date
+          - date_ordered
+          - order_creation_date
+          - order_placement_date
+          - date_of_purchase
+    facts:
       - name: TOTAL_PRICE_USD
         expr: TOTAL_PRICE_USD
         data_type: NUMBER(12,2)
@@ -624,6 +636,15 @@ tables:
       columns:
         - SALES_ORDER_ID
         - CUSTOMER_ID
+    description: This table stores information about individual sales orders, including the order details, customer information, order status, and shipping details, providing a record of each transaction made by a customer.
+    synonyms:
+      - order
+      - purchase
+      - transaction
+      - sale
+      - invoice
+      - customer_order
+      - purchase_order
 relationships:
   - name: cust_loc
     join_type: inner
