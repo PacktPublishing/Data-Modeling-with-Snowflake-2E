@@ -1,6 +1,6 @@
 /*
  * 
- * 14.1 Reverse balance fact table
+ * Reverse balance fact table
  * 
  * 
  */

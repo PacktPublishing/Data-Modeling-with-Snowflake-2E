@@ -1,6 +1,6 @@
 /*
  * 
- * 17. Demystifying Data Vault
+ * Demystifying Data Vault
  * 
  * 
  */

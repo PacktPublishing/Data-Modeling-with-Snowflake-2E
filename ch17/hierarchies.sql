@@ -1,6 +1,6 @@
 /*
  * 
- * 16. Working with hierarchies
+ * Working with hierarchies
  * 
  * 
  */

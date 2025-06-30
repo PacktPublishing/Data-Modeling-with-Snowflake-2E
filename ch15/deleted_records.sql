@@ -1,8 +1,8 @@
 /*
  * 
  * 
- * 14.2. Recovering physically deleted records
- * 	  and performing a clean "logical" delete
+ *  Recovering physically deleted records
+ *  and performing a clean "logical" delete
  * 
  * 
  */

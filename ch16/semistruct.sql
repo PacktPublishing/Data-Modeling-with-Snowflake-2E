@@ -1,6 +1,6 @@
 /*
  * 
- * 15. Working with semi-structured data
+ * Working with semi-structured data
  * 
  * 
  */
