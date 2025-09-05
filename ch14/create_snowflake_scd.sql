@@ -14,7 +14,7 @@ CREATE WAREHOUSE IF NOT EXISTS demo_wh WAREHOUSE_SIZE = XSMALL;
    with the name of an existing warehouse that 
    you have access to. */
 
-CREATE OR REPLACE SCHEMA ch13_dims; 
+CREATE OR REPLACE SCHEMA ch14_dims; 
 
 
 ---------------------------------------------------------------------------------------------------------------------
