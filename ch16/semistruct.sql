@@ -9,7 +9,7 @@
 -- Create a table and load semi-structured data
 ---------------------------------------------------------------------------------------------------------------------
 
-CREATE OR REPLACE SCHEMA ch15_semistruct;
+CREATE OR REPLACE SCHEMA ch16_semistruct;
 
 
 CREATE OR REPLACE TABLE pirate_json
