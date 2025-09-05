@@ -9,7 +9,7 @@
 -- Create the base table and load data 
 --------------------------------------------------------------------------------------------------------------------- 
  
-CREATE OR REPLACE SCHEMA ch16_hier;
+CREATE OR REPLACE SCHEMA ch17_hier;
 
 CREATE OR REPLACE TABLE pirate (
 	pirate_id NUMBER(38,0) NOT NULL,
