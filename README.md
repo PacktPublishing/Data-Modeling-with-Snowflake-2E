@@ -1,7 +1,7 @@
 
 # Data Modeling with Snowflake, Second Edition
 
-<a href="https://www.packtpub.com/product/data-modeling-with-snowflake/9781837634453"><img src="https://content.packt.com/B19467/cover_image_small.jpg" alt="Data Modeling with Snowflake" height="256px" align="right"></a>
+<a href="https://www.packtpub.com/product/data-modeling-with-snowflake/9781837634453"><img src="https://content.packt.com/_/image/original/B32134/cover_image.jpg?version=1756797323" alt="Data Modeling with Snowflake" height="256px" align="right"></a>
 
 This is the code repository for [Data Modeling with Snowflake, Second Edition](https://www.packtpub.com/product/data-modeling-with-snowflake/9781837028030), published by Packt.
 
